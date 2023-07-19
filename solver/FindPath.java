@@ -19,10 +19,8 @@ public class FindPath {
         }
         return false;
         }
-        
-    public boolean findPath  (
-        List<List<Character>> labyrinth, int[][] position, List<int[][]> pathList, int minimumMovements) {
-        
+    
+    public boolean isTheEnd (List<List<Character>> labyrinth, int[][] position) {
         int lenghtLabyrinth = labyrinth.size();
 
         for(int i = 0; i > 3; i++) {
@@ -30,6 +28,15 @@ public class FindPath {
             if (mult == lenghtLabyrinth) {
                 return true;
             }
+        }
+        return false;
+    }
+
+        
+    public boolean findPath  (List<List<Character>> labyrinth, int[][] position, List<int[][]> pathList) {
+        
+        if (isTheEnd(labyrinth, position)) {
+            return true;
         }
         
         int[][] lastPosition = pathList.get(pathList.size()-1);
@@ -48,15 +55,55 @@ public class FindPath {
         for(int k = 0; k < 5; k++) {
             int[][] newPosition = directionOptions.get(k);
             if (direc.isValid(labyrinth, newPosition) && !isSamePosition(lastPosition, newPosition)) {
-               if (findPath(labyrinth, newPosition, positionsList, minimumMovements +1)) {
+               if (findPath(labyrinth, newPosition, positionsList)) {
                 return true;
                }
             }
         }
 
-        pathList.get(pathList.size()-1);
+        pathList.remove(pathList.size()-1);
         return false;
 
+    }
+
+    public boolean findAnotherPath (
+        List<List<Character>> labyrinth, int[][] position, List<int[][]> pathList, List<int[][]> listOfPath, int maxMovements) {
+
+        if (pathList.size() >= maxMovements) {
+            return false;
+        }
+        if (isTheEnd(labyrinth, position)) {
+            return true;
+        }
+        
+        int[][] lastPosition = pathList.get(pathList.size()-1);
+        pathList.add(position);
+        
+
+        Direction direc = new Direction();
+        List<int[][]> directionOptions = new ArrayList<int[][]>(null);
+        directionOptions.add(direc.moveRight(position));
+        directionOptions.add(direc.moveDown(position));
+        directionOptions.add(direc.moveLeft(position));
+        directionOptions.add(direc.moveUp(position));
+        directionOptions.add(direc.rotate(position));
+
+
+        for(int k = 0; k < 5; k++) {
+            int[][] newPosition = directionOptions.get(k);
+            if(listOfPath.contains(newPosition)) {
+                directionOptions.remove(k);
+                directionOptions.add(newPosition);
+            }
+            if (direc.isValid(labyrinth, newPosition) && !isSamePosition(lastPosition, newPosition)) {
+               if (findPath(labyrinth, newPosition, positionsList)) {
+                return true;
+               }
+            }
+        }
+
+        pathList.remove(pathList.size()-1);
+        return false;
     }
         
     
