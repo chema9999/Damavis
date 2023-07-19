@@ -19,14 +19,22 @@ public class GiveResult {
         }
         return list;
     }
-    public Integer findShortestPath(List<List<Character>> labyrinth) {
+    public static Integer findShortestPath(List<List<Character>> labyrinth) {
 
         FindPath find = new FindPath();
         int[][] initialPosition = {{0,1},{0,2},{0,3}};
         List<int[][]> pathList = new ArrayList<int[][]>();
+        pathList.add(initialPosition);
         if(find.findPath(labyrinth, initialPosition, pathList)){
             List<int[][]> otherPath = new ArrayList<int[][]>();
-            if(find.findAnotherPath(labyrinth, initialPosition, otherPath, pathList, 0))
+            int movements = pathList.size();
+            while(find.findAnotherPath(labyrinth, initialPosition, otherPath, pathList, movements)){
+                pathList.addAll(otherPath);
+                movements = otherPath.size();
+            } if(pathList.size() != movements) {
+                return movements;
+            }
+            return movements;
         }
         return -1;
     }
@@ -46,7 +54,7 @@ public class GiveResult {
         cols = userInput.nextInt();
         
         labyrinthMatrix = new char[rows][cols];
-        System.out.println("Please enter the elements of the labyrinth by rows");
+        System.out.println("Please enter the elements of the labyrinth by rows and separted by a space");
         for(int i=0; i < rows; i++){
             for(int j=0; j < cols; j++){
                 labyrinthMatrix[i][j] = userInput.next().charAt(0);
@@ -60,6 +68,8 @@ public class GiveResult {
             System.out.println();
         }
        labyrinth = matrixToList(labyrinthMatrix, rows, cols);
+
+       System.out.println("The solution to your labyrinth is" + findShortestPath(labyrinth));
         
     }
 }

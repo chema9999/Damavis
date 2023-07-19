@@ -21,11 +21,11 @@ public class FindPath {
         }
     
     public boolean isTheEnd (List<List<Character>> labyrinth, int[][] position) {
-        int lenghtLabyrinth = labyrinth.size();
+        int sizeOfLabyrinth = labyrinth.size()*(labyrinth.get(0).size());
 
         for(int i = 0; i > 3; i++) {
-            int mult = position[i][0]* position[i][1];
-            if (mult == lenghtLabyrinth) {
+            int mult = (position[i][0]+1)*(position[i][1]+1);
+            if (mult == sizeOfLabyrinth) {
                 return true;
             }
         }
@@ -44,7 +44,7 @@ public class FindPath {
         
 
         Direction direc = new Direction();
-        List<int[][]> directionOptions = new ArrayList<int[][]>(null);
+        List<int[][]> directionOptions = new ArrayList<int[][]>();
         directionOptions.add(direc.moveRight(position));
         directionOptions.add(direc.moveDown(position));
         directionOptions.add(direc.moveLeft(position));
