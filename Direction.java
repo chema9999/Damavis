@@ -1,8 +1,12 @@
-package movements;
+
+
+
 
 import java.util.List;
 
 public class Direction{
+
+    
 
     public boolean isValid (List<List<Character>> labyrinth, int[][] position) {
 
@@ -66,4 +70,6 @@ public class Direction{
           position[0][1] = position[2][1]--;  
         return position;
     }
+    public static void main(String[] args){}
+
 }

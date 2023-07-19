@@ -1,10 +1,10 @@
-package solver;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import movements.Direction;
+
 
 public class FindPath {
 
@@ -105,7 +105,7 @@ public class FindPath {
         pathList.remove(pathList.size()-1);
         return false;
     }
-        
+    public static void main(String[] args){}
     
 }
 
