@@ -1,11 +1,35 @@
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class GiveResult {
 
+    public static List<List<Character>> matrixToList(char[][] matrix,int rows, int cols) {
+
+        List<List<Character>> list = new ArrayList<List<Character>>();
+        for(int i = 0; i<rows; i++) {
+            List<Character> rowList = new ArrayList<Character>();
+            for(int j = 0; j<cols; j++){
+                rowList.add(Character.valueOf(matrix[i][j]));
+            }
+            list.add(rowList);
+        }
+        return list;
+    }
+    public Integer findShortestPath(List<List<Character>> labyrinth) {
+
+        FindPath find = new FindPath();
+        int[][] initialPosition = {{0,1},{0,2},{0,3}};
+        List<int[][]> pathList = new ArrayList<int[][]>();
+        if(find.findPath(labyrinth, initialPosition, pathList)){
+            List<int[][]> otherPath = new ArrayList<int[][]>();
+            if(find.findAnotherPath(labyrinth, initialPosition, otherPath, pathList, 0))
+        }
+        return -1;
+    }
 
     public static void main(String[] args) {
 
@@ -35,5 +59,7 @@ public class GiveResult {
                 System.out.print(labyrinthMatrix[i][j] + "  ");
             System.out.println();
         }
+       labyrinth = matrixToList(labyrinthMatrix, rows, cols);
+        
     }
 }
