@@ -13,12 +13,11 @@ abstract class Directions{
 
                     return false;
                 }
-                return true;
             }
+        return true;
         }
 
-
-        return false;
+     return false;
     }
 }
 
